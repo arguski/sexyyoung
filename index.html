@@ -26,7 +26,24 @@
     <!--文章內容-->
     <div class="content">
         
-        <textarea id="markdown" style="display:none;"></textarea>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // 替換這裡的URL為你的Markdown文件的路徑
+            const markdownFilePath = '240729test.md';
+            
+            fetch(markdownFilePath)
+                .then(response => response.text())
+                .then(markdownText => {
+                    const htmlContent = marked.parse(markdownText);
+                    document.getElementById('content').innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('Error fetching the markdown file:', error);
+                    document.getElementById('content').innerHTML = '<p>Failed to load content.</p>';
+                });
+        });
+    </script>
         
         <img src="img/a64c63720fa6ccfb2e97e39c6244a0c4.png"/>
     </div>
